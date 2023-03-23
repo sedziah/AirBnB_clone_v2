@@ -1,24 +1,22 @@
 #!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+"""Test suite for the City class of the models.city module"""
+import unittest
+
+from models.base_model import BaseModel
 from models.city import City
 
 
-class test_City(test_basemodel):
-    """ """
+class TestCity(unittest.TestCase):
+    """Test cases for the City class"""
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "City"
-        self.value = City
+    def setUp(self):
+        self.city = City()
+        self.attr_list = ["state_id", "name"]
 
-    def test_state_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.state_id), str)
+    def test_city_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.city), BaseModel))
 
-    def test_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    def test_attrs_are_class_attrs(self):
+        for attr in self.attr_list:
+            self.assertIs(type(getattr(self.city, attr)), str)
+            self.assertFalse(bool(getattr(self.city, attr)))
