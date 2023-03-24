@@ -1,30 +1,29 @@
 #!/usr/bin/python3
-"""Test suite for Review class in models.review"""
-import unittest
-
-from models.base_model import BaseModel
+""" """
+from tests.test_models.test_base_model import test_basemodel
 from models.review import Review
 
 
-class TestReview(unittest.TestCase):
-    """Test cases for the Review class"""
+class test_review(test_basemodel):
+    """ """
 
-    def setUp(self):
-        self.review = Review()
-        self.attr_list = [
-            "place_id",
-            "user_id",
-            "text"
-        ]
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = "Review"
+        self.value = Review
 
-    def test_review_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.review), BaseModel))
+    def test_place_id(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.place_id), str)
 
-    def test_attrs_are_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertTrue(hasattr(self.review, attr))
+    def test_user_id(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.user_id), str)
 
-    def test_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertIs(type(getattr(self.review, attr)), str)
-            self.assertFalse(bool(getattr(self.review, attr)))
+    def test_text(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.text), str)

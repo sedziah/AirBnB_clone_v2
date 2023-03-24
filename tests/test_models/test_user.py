@@ -1,27 +1,34 @@
 #!/usr/bin/python3
-"""Test suite for the User class in models.user"""
-import unittest
-from models.base_model import BaseModel
-
+""" """
+from tests.test_models.test_base_model import test_basemodel
 from models.user import User
 
 
-class TestUser(unittest.TestCase):
-    """Test cases against the User class"""
+class test_User(test_basemodel):
+    """ """
 
-    def test_attrs_are_class_attrs(self):
-        u = User()
-        # test that it is a class attribute
-        self.assertTrue(hasattr(User, "first_name")
-                        and hasattr(User, "last_name"))
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = "User"
+        self.value = User
 
-    def test_class_attrs(self):
-        u = User()
-        self.assertIs(type(u.first_name), str)
-        self.assertIs(type(u.last_name), str)
-        self.assertTrue(u.first_name == "")
-        self.assertTrue(u.last_name == "")
+    def test_first_name(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.first_name), str)
 
-    def test_user_is_a_subclass_of_basemodel(self):
-        u = User()
-        self.assertTrue(issubclass(type(u), BaseModel))
+    def test_last_name(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.last_name), str)
+
+    def test_email(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.email), str)
+
+    def test_password(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.password), str)

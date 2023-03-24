@@ -1,32 +1,34 @@
 #!/usr/bin/python3
-"""Starts Flask web app
+"""Starts a Flask web application.
+
+The application listens on 0.0.0.0, port 5000.
 Routes:
-    / - display "Hello HBNB!"
-    /hbnb - display "HBNB"
-    /c/<text> - display "C <text>"
+    /: Displays 'Hello HBNB!'.
+    /hbnb: Displays 'HBNB'.
+    /c/<text>: Displays 'C' followed by the value of <text>.
 """
 from flask import Flask
 
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hbnb_route():
-    """prints Hello HBNB"""
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
+    """Displays 'Hello HBNB!'."""
     return "Hello HBNB!"
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """prints HBNB"""
+    """Displays 'HBNB'."""
     return "HBNB"
 
 
-@app.route('/c/<string:text>', strict_slashes=False)
-def c_text(text):
-    """prints C followed by <text> content"""
+@app.route("/c/<text>", strict_slashes=False)
+def c(text):
+    """Displays 'C' followed by the value of <text>."""
     text = text.replace("_", " ")
-    return "C %s" % text
+    return "C {}".format(text)
 
 
 if __name__ == "__main__":

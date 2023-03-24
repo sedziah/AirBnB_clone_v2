@@ -1,48 +1,57 @@
 #!/usr/bin/python3
-"""Starts Flask web app
+"""Starts a Flask web application.
+
+The application listens on 0.0.0.0, port 5000.
 Routes:
-    / - display "Hello HBNB!"
-    /hbnb - display "HBNB"
-    /c/<text> - display "C <text>"
-    /python/<text> - display "Python is cool"
-    /number/<n> - display n if integer
+    /: Displays 'Hello HBNB!'.
+    /hbnb: Displays 'HBNB'.
+    /c/<text>: Displays 'C' followed by the value of <text>.
+    /python/(<text>): Displays 'Python' followed by the value of <text>.
+    /number/<n>: Displays 'n is a number' only if <n> is an integer.
 """
 from flask import Flask
+from flask import abort
 
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hbnb_route():
-    """prints Hello HBNB"""
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
+    """Displays 'Hello HBNB!'."""
     return "Hello HBNB!"
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """prints HBNB"""
+    """Displays 'HBNB'."""
     return "HBNB"
 
 
-@app.route('/c/<string:text>', strict_slashes=False)
-def c_text(text):
-    """prints C followed by <text> content"""
+@app.route("/c/<text>", strict_slashes=False)
+def c(text):
+    """Displays 'C' followed by the value of <text>.
+
+    Replaces any underscores in <text> with slashes.
+    """
     text = text.replace("_", " ")
-    return "C %s" % text
+    return "C {}".format(text)
 
 
-@app.route('/python', strict_slashes=False)
-@app.route('/python/<string:text>', strict_slashes=False)
-def python_text(text="is cool"):
-    """prints Python is cool"""
+@app.route("/python", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def python(text="is cool"):
+    """Displays 'Python' followed by the value of <text>.
+
+    Replaces any underscores in <text> with slashes.
+    """
     text = text.replace("_", " ")
-    return "Python %s" % text
+    return "Python {}".format(text)
 
 
-@app.route('/number/<int:n>', strict_slashes=False)
-def number_n(n):
-    """display n if integer"""
-    return "%i is a number" % n
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """Displays 'n is a number' only if n is an integer."""
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
